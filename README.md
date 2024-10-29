@@ -6,9 +6,9 @@ com o framework Flutter.
 O projeto cumpre todas as exigências solicitadas no email. As API's utilizadas no processo
 de criação do aplicativo foram:
 
-Firebase Auth - Utilizado para realizar o cadastro e a autenticação de usuários.
-FireStore - Utilizado para persistência de dados.
-Firebase Storage - utilizado para salvar a imagem do perfil de usuários.
+* Firebase Auth - Utilizado para realizar o cadastro e a autenticação de usuários.
+* FireStore - Utilizado para persistência de dados.
+* Firebase Storage - utilizado para salvar a imagem do perfil de usuários.
 
 Todas as Api's utilizadas são do firebase, e foram integradas utilizando minha conta pessoal do
 google. Caso necessitem visualizar algum dado, podem me solicitar via email, ou whatsapp.

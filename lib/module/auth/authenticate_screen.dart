@@ -42,7 +42,6 @@ class AuthenticateScreenState extends State<AuthenticateScreen> {
       );
 
     } on FirebaseAuthException catch (e) {
-      inspect(e);
       if (e.code == "invalid-credential") {
           setState(() {
            _errorMessage = "Email/Senha inválidos ou usuário não cadastrado";
@@ -59,7 +58,6 @@ class AuthenticateScreenState extends State<AuthenticateScreen> {
           });
         return;
       }
-      // inspect(e);
       setState(() {
         _errorMessage = e.message!;
       });
@@ -242,7 +240,6 @@ class AuthenticateScreenState extends State<AuthenticateScreen> {
                               _emailController.text = "";
                               _passwordController.text = "";
                             });
-                            // _register();
                             RegisterUserPopUp.registrationPopup(context, (userName, email, passWord) => _register(userName, email, passWord));
                           },
                           child: const Text('Cadastrar'),

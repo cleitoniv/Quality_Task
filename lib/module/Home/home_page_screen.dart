@@ -28,7 +28,6 @@ class HomePageScreenState extends State<HomePageScreen> {
   late bool isLoading;
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
   final ImagePicker _picker = ImagePicker();
-  // String userImage = "https://www.webposto.com.br/assets/logos/webposto/logo-webposto-bomba-branca-01-small.webp";
   String userImage = "";
   List<TaskModel> tasks = [];
   final FireStoreService fireStoreService = FireStoreService();
@@ -170,18 +169,15 @@ class HomePageScreenState extends State<HomePageScreen> {
     final pickedFile = await _picker.pickImage(source: source);
     if (pickedFile != null) {
       File imageFile = File(pickedFile.path);
-
-      // Salvar imagem no Firebase Storage
       String fileName = 'profile_${user?.uid}.jpg';
       Reference ref = FirebaseStorage.instance.ref().child('profile_images').child(fileName);
       await ref.putFile(imageFile);
 
-      // Obter a URL da imagem e atualizar o photoURL do usuário
+      
       String downloadURL = await ref.getDownloadURL();
       await user?.updatePhotoURL(downloadURL);
-      await user?.reload();  // Recarregar usuário para refletir a atualização
+      await user?.reload();
 
-      // Atualizar a interface
       setState(() {
         userImage = downloadURL;
         user = FirebaseAuth.instance.currentUser;
@@ -231,7 +227,6 @@ class HomePageScreenState extends State<HomePageScreen> {
 
   @override
   Widget build(BuildContext context) {
-    inspect(user);
     List<TaskModel> taskList = [];
     return Scaffold(
       key: _scaffoldKey,
@@ -251,7 +246,6 @@ class HomePageScreenState extends State<HomePageScreen> {
         leading: IconButton(
           icon: const Icon(Icons.menu),
           onPressed: () {
-            inspect(user);
             _scaffoldKey.currentState?.openDrawer();
           },
         ),
@@ -283,7 +277,6 @@ class HomePageScreenState extends State<HomePageScreen> {
                   user?.photoURL as String
                 ) ,
                 child: null,
-                // user?.photoURL != null ? null : const Icon(Icons.add_a_photo_sharp, size: 25),
               ) 
               : 
               const CircleAvatar(
@@ -325,8 +318,7 @@ class HomePageScreenState extends State<HomePageScreen> {
             taskList.add(TaskModel.fromMap(data as Map<String, dynamic>));
           }
           inspect(taskList);
-          if (snapshot.connectionState != ConnectionState.active) {  
-            inspect(snapshot);
+          if (snapshot.connectionState != ConnectionState.active) {
             return const Center(child: CircularProgressIndicator());
           } else if (snapshot.hasData && snapshot.data != null && snapshot.data!.docs.isNotEmpty) {
               return
@@ -397,7 +389,6 @@ class HomePageScreenState extends State<HomePageScreen> {
                               IconButton(
                                 icon: const Icon(Icons.edit),
                                 onPressed: () {
-                                  print(taskList[index]);
                                   _showEditTaskDialog(taskList[index]);
                                 },
                               ),

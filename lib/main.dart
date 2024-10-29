@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/services.dart';
 import 'package:quality_task/module/auth/Authenticate_screen.dart';
 import 'firebase_options.dart';
 
@@ -8,8 +9,10 @@ void main() async {
     await Firebase.initializeApp(
       options: DefaultFirebaseOptions.currentPlatform,
     );
-
-    runApp(const QualityTask());
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]).then((_) {
+      runApp(const QualityTask());
+    });
+    
 }
 
 class QualityTask extends StatelessWidget {
